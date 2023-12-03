@@ -1,0 +1,33 @@
+/*La formula para la suma de los primeros n numeros naturales 
+denominada Serie aritmetica que es igual a n*(n+1) / 2 */
+/*Ejemplos:
+n= 5, serie = 15
+n= 10, serie = 55
+n= 100, serie = 5050 */
+
+method Main()
+{
+    var n : nat := 100;
+    var resultadoSerie : nat := CalculoSerieAritmetica(n);
+    print resultadoSerie;
+    assert resultadoSerie == (n*(n+1))/2;
+
+}
+
+method CalculoSerieAritmetica (n: nat) returns (sumatoria: nat)
+    requires n>=1                     //Pre-condicion
+    ensures  sumatoria == (n*(n+1))/2 //Post-Condicion
+{
+    sumatoria:= 0; 
+
+    var i: nat := 1;
+    
+    while i <= n
+        invariant 1 <= i <= n+1
+        invariant sumatoria == i * (i-1)/2
+        decreases n - i
+    {
+        sumatoria := sumatoria + i;
+        i := i + 1;
+    }
+}
