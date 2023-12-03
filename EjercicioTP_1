@@ -1,0 +1,37 @@
+/*El calculo del triple de un numero entero Z:{-N...,-2,-1,0,1,2,...,N} usando una funcion que calcula el doble
+de un numero natural N:{1,2,3....N}.*/
+method Main() 
+{
+    var nro : int := 5;
+    
+    var resultadoFinal : int := CalculoTripleNro(nro);
+    print resultadoFinal;
+    assert resultadoFinal == nro*3;
+}
+
+method CalculoTripleNro(nro: int) returns (resultado: int)
+    requires nro<0 || nro==0 || nro>0 //Pre-condición
+    ensures resultado == nro*3        //Post-condición
+{
+    if ( nro > 0 ){//nro positivo
+        var doble := CalcularDobleNro(nro);
+        resultado := doble + nro;
+
+    }else{//nro negativo
+        if ( nro < 0 )
+        {
+            var doble := CalcularDobleNro(-nro);
+            resultado := -doble + nro;
+        
+        }else{//nro = 0
+            resultado := 0;
+        }
+    }
+}
+
+method CalcularDobleNro(nro: nat) returns (doble: nat)
+    requires nro >= 1       //Pre-condición
+    ensures doble == nro*2 //Post-condición
+{
+    doble := nro + nro;
+}
